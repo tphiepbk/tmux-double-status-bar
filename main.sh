@@ -41,7 +41,7 @@ function setup_first_right_status_bar() {
     local cpu_usage_part
     cpu_usage_part="${PINK_ON_BLACK}${OPEN_ICON}${YELLOW_ON_PINK} CPU #(bash ${UTILS_DIR}/get_cpu_stat.sh used) ${PINK_ON_BLACK}${CLOSE_ICON}"
     local ram_usage_part
-    ram_usage_part="${DARK_RED_ON_BLACK}${OPEN_ICON}${YELLOW_ON_DARK_RED} RAM #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) "
+    ram_usage_part="${DARKRED_ON_BLACK}${OPEN_ICON}${YELLOW_ON_DARKRED} RAM #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) "
 
     local right_icon_separator_1
     right_icon_separator_1="${WHITE_ON_BLACK} ${MICROCHIP_ICON}  "
@@ -53,26 +53,25 @@ function setup_first_right_status_bar() {
     set_tmux_option "status-right" "${right_icon_separator_1}${cpu_usage_part}${right_icon_separator_2}${ram_usage_part}"
 }
 
-function setup_second_status_bar() {
-# Format the second line of status bar
-set -g status-format[1] "#[align=left]#[bg=color16, fg=color118] AUSTRALIA/Melbourne \
-#[bg=color16, fg=color15]${GLOBE_ICON}  \
-#[bg=color16, fg=color14]#( bash ~/.tmux/scripts/tmux_get_time.sh AU static)"
-set -ag status-format[1] "#[align=centre]#[fg=color18,bg=color16]${OPEN_ICON}\
-#[bg=color18, fg=color118] Central European Time (CET) \
-#[bg=color18, fg=color15]${GLOBE_ICON}  \
-#[bg=color18, fg=color226]#( bash ~/.tmux/scripts/tmux_get_time.sh CET static) \
-#[fg=color18,bg=color16]${CLOSE_ICON}"
-set -ag status-format[1] "#[align=right]#[bg=color16, fg=color118] VIETNAM/Ho Chi Minh City \
-#[bg=color16, fg=color15]${GLOBE_ICON}  \
-#[bg=color16, fg=color14]#( bash ~/.tmux/scripts/tmux_get_time.sh VN static) "
+function setup_second_line_status_bar() {
+    local left_time_part
+    left_time_part="#[align=left]${LIGHTGREEN_ON_BLACK} AUSTRALIA/Melbourne ${WHITE_ON_BLACK}${GLOBE_ICON} ${AQUA_ON_BLACK} #( bash ${UTILS_DIR}/get_time.sh AU static)"
+    local middle_time_part
+    middle_time_part="#[align=centre]${BLUE_ON_BLACK}${OPEN_ICON}${LIGHTGREEN_ON_BLUE} Central European Time (CET) ${WHITE_ON_BLUE}${GLOBE_ICON} ${YELLOW_ON_BLUE} #(bash ${UTILS_DIR}/get_time.sh CET static) ${BLUE_ON_BLACK}${CLOSE_ICON}"
+    local right_time_part
+    right_time_part="#[align=right]${LIGHTGREEN_ON_BLACK} VIETNAM/Ho Chi Minh City ${WHITE_ON_BLACK}${GLOBE_ICON}  ${AQUA_ON_BLACK}#(bash ${UTILS_DIR}/get_time.sh VN static) "
 
+    set_tmux_option "status-format[1]" "${left_time_part}${middle_time_part}${right_time_part}"
 }
 
 function main() {
+    set_tmux_option "status-interval" "1"
+    set_tmux_option "status" "2"
+
     setup_window
     setup_first_left_status_bar
     setup_first_right_status_bar
+    setup_second_line_status_bar
 }
 
 main
