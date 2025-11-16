@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
-set_tmux_option() {
+function cmd_get_tmux_version() {
+    echo "tmux -V | awk '{ print toupper(\$0) }'"
+}
+
+function cmd_get_session_name() {
+    echo "tmux display-message -p '#S'"
+}
+
+function set_tmux_option() {
     local option="$1"
     local value="$2"
     tmux set-option -gq "$option" "$value"
 }
 
-get_tmux_option() {
+function get_tmux_option() {
     local option="$1"
     local default_value="$2"
     local option_value

@@ -2,5 +2,5 @@
 
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-"$CURRENT_DIR"/main.sh
+"${CURRENT_DIR}"/main.sh
 

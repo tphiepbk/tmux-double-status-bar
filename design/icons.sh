@@ -14,11 +14,11 @@ SLOPE_CLOSE_ICON="#(printf '\ue0b8')"
 OPEN_ICON="${HALF_ROUND_OPEN_ICON}"
 CLOSE_ICON="${HALF_ROUND_CLOSE_ICON}"
 
-WINDOW_ICON="\uf2d2"
+WINDOW_ICON="$(echo -e '\uf2d2')"
 
 TROPHY_ICON="#(printf '\uf091')"
 HOUSE_ICON="#(printf '\uf015')"
-MUG_SAUCER_ICON="#(printf '\uf0f4')"
+MUG_SAUCER_ICON="$(echo -e '\uf0f4')"
 MICROCHIP_ICON="#(printf '\uf2db')"
 DATABASE_ICON="#(printf '\uf1c0')"
 GLOBE_ICON="#(printf '\uf0ac')"
