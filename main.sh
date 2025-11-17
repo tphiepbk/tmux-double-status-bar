@@ -67,6 +67,7 @@ function setup_second_line_status_bar() {
 function main() {
     set_tmux_option "status-interval" "1"
     set_tmux_option "status" "2"
+    set_tmux_option "status-style" "fg=color15,bg=color16"
 
     setup_window
     setup_first_left_status_bar
