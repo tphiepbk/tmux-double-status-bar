@@ -2,7 +2,7 @@
 
 # Define icons
 # { left = '', right = '' }
-HALF_ROUND_OPEN_ICON="$(echo -e'\ue0b6')"
+HALF_ROUND_OPEN_ICON="$(echo -e '\ue0b6')"
 HALF_ROUND_CLOSE_ICON="$(echo -e '\ue0b4')"
 # { left = '', right = '' }
 TRIANGLE_OPEN_ICON="$(echo -e '\ue0b2')"
