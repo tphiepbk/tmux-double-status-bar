@@ -11,6 +11,8 @@ source "${DESIGN_DIR}/colors.sh"
 source "${DESIGN_DIR}/icons.sh"
 # shellcheck source=/dev/null
 source "${UTILS_DIR}/helpers.sh"
+# shellcheck source=/dev/null
+source "${UTILS_DIR}/dependencies.sh"
 
 function setup_window() {
     set_tmux_option "window-status-separator" " ${WINDOW_ICON}  "
@@ -48,9 +50,13 @@ function setup_first_right_status_bar() {
     local right_icon_separator_2
     right_icon_separator_2="${WHITE_ON_BLACK} ${DATABASE_ICON}  "
 
+    # Call the "continuum_save.sh" from "tmux-continuum" plugin to allow autosave feature work correctly
+    local continuum_save_part
+    continuum_save_part="$(get_continuum_save_indicator)"
+
     set_tmux_option "status-right-length" "100"
     set_tmux_option "status-right-style" "default"
-    set_tmux_option "status-right" "${right_icon_separator_1}${cpu_usage_part}${right_icon_separator_2}${ram_usage_part}"
+    set_tmux_option "status-right" "${right_icon_separator_1}${cpu_usage_part}${right_icon_separator_2}${ram_usage_part}${continuum_save_part}"
 }
 
 function setup_second_line_status_bar() {
