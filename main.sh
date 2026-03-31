@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 DESIGN_DIR="${CURRENT_DIR}/design"
 UTILS_DIR="${CURRENT_DIR}/utils"
