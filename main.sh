@@ -16,7 +16,8 @@ source "${UTILS_DIR}/dependencies.sh"
 
 function setup_window() {
     set_tmux_option "window-status-separator" " ${WINDOW_ICON}  "
-    set_tmux_option "window-status-current-format" "${GREEN_ON_BLACK}${OPEN_ICON}${YELLOW_ON_GREEN}#I:#W#F${GREEN_ON_BLACK}${CLOSE_ICON}"
+    set_tmux_option "window-status-current-format" "${GREEN_ON_BLACK}${OPEN_ICON}${YELLOW_ON_GREEN}#I:#W#F#{?pane_synchronized,(SYNC),}${GREEN_ON_BLACK}${CLOSE_ICON}"
+    set_tmux_option "window-status-format" "#I:#W#F#{?pane_synchronized,(SYNC),}"
 }
 
 function setup_first_left_status_bar() {
