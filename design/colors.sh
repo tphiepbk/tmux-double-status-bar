@@ -1,23 +1,57 @@
 #!/usr/bin/env bash
 
-# Define colors
-CYAN_ON_PURPLE="#[fg=color159,bg=color91]"
-YELLOW_ON_GREEN="#[fg=color226,bg=color22]"
-GREEN_ON_BLACK="#[fg=color22,bg=color16]"
-PURPLE_ON_BLACK="#[fg=color91,bg=color16]"
-WHITE_ON_BLACK="#[fg=color255,bg=color16]"
-ORANGE_ON_BLACK="#[fg=color166,bg=color16]"
-WHITE_ON_ORANGE="#[fg=color231,bg=color166]"
-RED_ON_BLACK="#[fg=color160,bg=color16]"
-PINK_ON_BLACK="#[fg=color89,bg=color16]"
-DARKRED_ON_BLACK="#[fg=color52,bg=color16]"
-YELLOW_ON_RED="#[fg=color226,bg=color160]"
-YELLOW_ON_PINK="#[fg=color226,bg=color89]"
-YELLOW_ON_DARKRED="#[fg=color226,bg=color52]"
-LIGHTGREEN_ON_BLACK="#[fg=color118,bg=color16]"
-AQUA_ON_BLACK="#[fg=color14,bg=color16]"
-BLUE_ON_BLACK="#[fg=color18,bg=color16]"
-LIGHTGREEN_ON_BLUE="#[fg=color118,bg=color18]"
-WHITE_ON_BLUE="#[fg=color255,bg=color18]"
-YELLOW_ON_BLUE="#[fg=color226,bg=color18]"
+# Base color definitions (256-color codes and HEX)
+COLOR_LIGHT_CYAN3="color159"
+COLOR_DARK_MAGENTA="color91"
+COLOR_YELLOW1="color226"
+COLOR_GREEN4="color22"
+COLOR_GREY93="color255"
+COLOR_DARK_RED_NEW="#2E0000"
+COLOR_WHITE="#FFFFFF"
+COLOR_DARK_ORANGE3="color166"
+COLOR_RED3="color160"
+COLOR_DEEP_PINK4="color89"
+COLOR_DARK_RED="color52"
+COLOR_CHARTREUSE1="color118"
+COLOR_CYAN="color14"
+COLOR_DARK_BLUE="color18"
 
+# Window status
+COLOR_WINDOW_ACTIVE_TEXT="#[fg=${COLOR_YELLOW1},bg=${COLOR_GREEN4}]"
+COLOR_WINDOW_ACTIVE_SEP="#[fg=${COLOR_GREEN4},bg=${COLOR_DARK_RED_NEW}]"
+
+# Left status bar: tmux version
+COLOR_TMUX_VERSION_TEXT="#[fg=${COLOR_LIGHT_CYAN3},bg=${COLOR_DARK_MAGENTA}]"
+COLOR_TMUX_VERSION_SEP="#[fg=${COLOR_DARK_MAGENTA},bg=${COLOR_DARK_RED_NEW}]"
+
+# Left status bar: hostname
+COLOR_HOSTNAME_TEXT="#[fg=${COLOR_WHITE},bg=${COLOR_DARK_ORANGE3}]"
+COLOR_HOSTNAME_SEP="#[fg=${COLOR_DARK_ORANGE3},bg=${COLOR_DARK_RED_NEW}]"
+
+# Left status bar: session name
+COLOR_SESSION_TEXT="#[fg=${COLOR_YELLOW1},bg=${COLOR_RED3}]"
+COLOR_SESSION_SEP="#[fg=${COLOR_RED3},bg=${COLOR_DARK_RED_NEW}]"
+
+# Right status bar: CPU
+COLOR_CPU_TEXT="#[fg=${COLOR_YELLOW1},bg=${COLOR_DEEP_PINK4}]"
+COLOR_CPU_SEP="#[fg=${COLOR_DEEP_PINK4},bg=${COLOR_DARK_RED_NEW}]"
+
+# Right status bar: RAM
+COLOR_RAM_TEXT="#[fg=${COLOR_YELLOW1},bg=${COLOR_DARK_RED}]"
+COLOR_RAM_SEP="#[fg=${COLOR_DARK_RED},bg=${COLOR_DARK_RED_NEW}]"
+
+# Icon separators (shared)
+COLOR_ICON_SEP="#[fg=${COLOR_GREY93},bg=${COLOR_DARK_RED_NEW}]"
+
+# Second line: side timezone (Melbourne / Vietnam)
+COLOR_TIMEZONE_SIDE_LABEL="#[fg=${COLOR_CHARTREUSE1},bg=${COLOR_DARK_RED_NEW}]"
+COLOR_TIMEZONE_SIDE_VALUE="#[fg=${COLOR_CYAN},bg=${COLOR_DARK_RED_NEW}]"
+
+# Second line: center timezone (CET)
+COLOR_TIMEZONE_CENTER_SEP="#[fg=${COLOR_DARK_BLUE},bg=${COLOR_DARK_RED_NEW}]"
+COLOR_TIMEZONE_CENTER_LABEL="#[fg=${COLOR_CHARTREUSE1},bg=${COLOR_DARK_BLUE}]"
+COLOR_TIMEZONE_CENTER_ICON="#[fg=${COLOR_GREY93},bg=${COLOR_DARK_BLUE}]"
+COLOR_TIMEZONE_CENTER_VALUE="#[fg=${COLOR_YELLOW1},bg=${COLOR_DARK_BLUE}]"
+
+# Background color of status bar
+COLOR_BACKGROUND="fg=${COLOR_WHITE},bg=${COLOR_DARK_RED_NEW}"
