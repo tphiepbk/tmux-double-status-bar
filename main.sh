@@ -15,7 +15,7 @@ source "${UTILS_DIR}/helpers.sh"
 source "${UTILS_DIR}/dependencies.sh"
 
 function setup_window() {
-    set_tmux_option "window-status-separator" " ${WINDOW_ICON}  "
+    set_tmux_option "window-status-separator" " ${COLOR_WINDOW_SEP}${WINDOW_ICON}  "
     set_tmux_option "window-status-current-format" "${COLOR_WINDOW_ACTIVE_SEP}${OPEN_ICON}${COLOR_WINDOW_ACTIVE_TEXT}#I:#W#F#{?pane_synchronized,(SYNC),}${COLOR_WINDOW_ACTIVE_SEP}${CLOSE_ICON}"
     set_tmux_option "window-status-format" "#I:#W#F#{?pane_synchronized,(SYNC),}"
 }
@@ -29,11 +29,11 @@ function setup_first_left_status_bar() {
     session_name_part="${COLOR_SESSION_SEP}${OPEN_ICON}${COLOR_SESSION_TEXT} #($(cmd_get_session_name)) ${COLOR_SESSION_SEP}${CLOSE_ICON}"
 
     local left_icon_separator_1
-    left_icon_separator_1="${COLOR_ICON_SEP} ${TROPHY_ICON}  "
+    left_icon_separator_1=" ${COLOR_ICON_SEP}${GEAR_ICON}  "
     local left_icon_separator_2
-    left_icon_separator_2="${COLOR_ICON_SEP} ${HOUSE_ICON}  "
+    left_icon_separator_2=" ${COLOR_ICON_SEP}${HOUSE_ICON}  "
     local left_icon_separator_3
-    left_icon_separator_3="${COLOR_ICON_SEP} ${MUG_SAUCER_ICON}"
+    left_icon_separator_3=" ${COLOR_ICON_SEP}${BRIEFCASE_ICON}"
 
     set_tmux_option "status-left-length" "100"
     set_tmux_option "status-left-style" "default"
@@ -47,9 +47,9 @@ function setup_first_right_status_bar() {
     ram_usage_part="${COLOR_RAM_SEP}${OPEN_ICON}${COLOR_RAM_TEXT} RAM #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) "
 
     local right_icon_separator_1
-    right_icon_separator_1="${COLOR_ICON_SEP} ${MICROCHIP_ICON}  "
+    right_icon_separator_1="${COLOR_ICON_SEP}${MICROCHIP_ICON}  "
     local right_icon_separator_2
-    right_icon_separator_2="${COLOR_ICON_SEP} ${DATABASE_ICON}  "
+    right_icon_separator_2=" ${COLOR_ICON_SEP}${MEMORY_ICON}  "
 
     # Call the "continuum_save.sh" from "tmux-continuum" plugin to allow autosave feature work correctly
     local continuum_save_part
