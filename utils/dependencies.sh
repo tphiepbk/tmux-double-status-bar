@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function get_continuum_save_indicator() {
     CONTINUUM_SAVE_SCRIPT="$HOME/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh"

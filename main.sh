@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
-
-DESIGN_DIR="${CURRENT_DIR}/design"
-UTILS_DIR="${CURRENT_DIR}/utils"
-
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
-source "${DESIGN_DIR}/colors.sh"
+source "${SCRIPT_DIR}/design/colors.sh"
 # shellcheck source=/dev/null
-source "${DESIGN_DIR}/icons.sh"
+source "${SCRIPT_DIR}/design/icons.sh"
 # shellcheck source=/dev/null
-source "${UTILS_DIR}/helpers.sh"
+source "${SCRIPT_DIR}/utils/helpers.sh"
 # shellcheck source=/dev/null
-source "${UTILS_DIR}/dependencies.sh"
+source "${SCRIPT_DIR}/utils/dependencies.sh"
 
 function setup_window() {
     set_tmux_option "window-status-separator" " ${COLOR_WINDOW_SEP}${WINDOW_ICON}  "

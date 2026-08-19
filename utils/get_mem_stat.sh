@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/helpers.sh"
 
 function _parse_free_command () {
     # TYPE should be: total, used, available
@@ -25,16 +29,16 @@ function _parse_free_command () {
 # TYPE should be: used, available
 TYPE="$1"
 AVAILABLE_TYPES=("used" "available")
-if [[ ! "${AVAILABLE_TYPES[*]}" =~ $TYPE ]]; then
-    echo "Invalid type !"
+if [[ -z "$TYPE" ]] || ! _contains "$TYPE" "${AVAILABLE_TYPES[@]}"; then
+    IFS=,; echo "Invalid type, please use \"${AVAILABLE_TYPES[*]}\" !"
     exit 1
 fi
 
 # UNIT should be: b, kb, mb and gb
 UNIT="$2"
 AVAILABLE_UNITS=("b" "kb" "mb" "gb")
-if [[ ! "${AVAILABLE_UNITS[*]}" =~ $UNIT ]]; then
-    echo "Invalid unit !"
+if [[ -z "$UNIT" ]] || ! _contains "$UNIT" "${AVAILABLE_UNITS[@]}"; then
+    IFS=,; echo "Invalid unit, please use \"${AVAILABLE_UNITS[*]}\" !"
     exit 1
 fi
 

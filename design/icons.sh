@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
-
-UTILS_DIR="${CURRENT_DIR}/../utils"
-
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
-source "${UTILS_DIR}/helpers.sh"
+source "${SCRIPT_DIR}/utils/helpers.sh"
 
 # Define icons
 HALF_ROUND_OPEN_ICON="$(echo -e '\ue0b6')"

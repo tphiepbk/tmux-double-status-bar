@@ -26,3 +26,16 @@ function get_tmux_option() {
     fi
 }
 
+# Utility to check if the item exists in the given array
+function _contains () {
+    local ITEM_TO_CHECK="$1"
+    shift
+    local ARRAY=( "$@" )
+    for item in "${ARRAY[@]}"; do
+        if [[ "$item" == "$ITEM_TO_CHECK" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+

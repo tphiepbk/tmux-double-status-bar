@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ $1 == "CET" ]]; then
     if [[ $2 == "static" ]]; then
