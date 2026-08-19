@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
-source "${SCRIPT_DIR}/utils/helpers.sh"
+source "${SCRIPT_DIR}/../utils/helpers.sh"
 
 # Define icons
 HALF_ROUND_OPEN_ICON="$(echo -e '\ue0b6')"
@@ -42,5 +42,6 @@ BRIEFCASE_ICON="$(echo -e '\uf0b1')"
 
 MICROCHIP_ICON="$(echo -e '\uf2db')"
 MEMORY_ICON="$(echo -e '\uefc5')"
+DATABASE_ICON="$(echo -e '\uf1c0')"
 
 GLOBE_ICON="$(echo -e '\uf0ac')"

@@ -43,6 +43,7 @@ if [[ -z "$UNIT" ]] || ! _contains "$UNIT" "${AVAILABLE_UNITS[@]}"; then
 fi
 
 UNIT_INDICATOR="${UNIT^^}"
+UNIT_INDICATOR="${UNIT_INDICATOR:0:-1}"
 TOTAL_MEM=$(_parse_free_command "total" "$UNIT")
 # TARGET_MEM could be USED_MEM or AVAILABLE_MEM
 TARGET_MEM=$(_parse_free_command "$TYPE" "$UNIT")

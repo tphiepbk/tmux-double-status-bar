@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+UTILS_DIR="${SCRIPT_DIR}/utils"
+DESIGN_DIR="${SCRIPT_DIR}/design"
+
 # shellcheck source=/dev/null
-source "${SCRIPT_DIR}/design/colors.sh"
+source "${DESIGN_DIR}/colors.sh"
 # shellcheck source=/dev/null
-source "${SCRIPT_DIR}/design/icons.sh"
+source "${DESIGN_DIR}/icons.sh"
 # shellcheck source=/dev/null
-source "${SCRIPT_DIR}/utils/helpers.sh"
+source "${UTILS_DIR}/helpers.sh"
 # shellcheck source=/dev/null
-source "${SCRIPT_DIR}/utils/dependencies.sh"
+source "${UTILS_DIR}/dependencies.sh"
 
 function setup_window() {
     set_tmux_option "window-status-separator" " ${COLOR_WINDOW_SEP}${WINDOW_ICON}  "
@@ -38,14 +42,18 @@ function setup_first_left_status_bar() {
 
 function setup_first_right_status_bar() {
     local cpu_usage_part
-    cpu_usage_part="${COLOR_CPU_SEP}${OPEN_ICON}${COLOR_CPU_TEXT} CPU #(bash ${UTILS_DIR}/get_cpu_stat.sh used) ${COLOR_CPU_SEP}${CLOSE_ICON}"
+    cpu_usage_part="${COLOR_CPU_SEP}${OPEN_ICON}${COLOR_CPU_TEXT} #(bash ${UTILS_DIR}/get_cpu_stat.sh used) ${COLOR_CPU_SEP}${CLOSE_ICON}"
     local ram_usage_part
-    ram_usage_part="${COLOR_RAM_SEP}${OPEN_ICON}${COLOR_RAM_TEXT} RAM #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) "
+    ram_usage_part="${COLOR_RAM_SEP}${OPEN_ICON}${COLOR_RAM_TEXT} #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) ${COLOR_RAM_SEP}${CLOSE_ICON}"
+    local disk_usage_part
+    disk_usage_part="${COLOR_DISK_SEP}${OPEN_ICON}${COLOR_DISK_TEXT} #(bash ${UTILS_DIR}/get_disk_stat.sh /home used) "
 
     local right_icon_separator_1
     right_icon_separator_1="${COLOR_ICON_SEP}${MICROCHIP_ICON}  "
     local right_icon_separator_2
     right_icon_separator_2=" ${COLOR_ICON_SEP}${MEMORY_ICON}  "
+    local right_icon_separator_3
+    right_icon_separator_3=" ${COLOR_ICON_SEP}${DATABASE_ICON}  "
 
     # Call the "continuum_save.sh" from "tmux-continuum" plugin to allow autosave feature work correctly
     local continuum_save_part
@@ -53,7 +61,7 @@ function setup_first_right_status_bar() {
 
     set_tmux_option "status-right-length" "100"
     set_tmux_option "status-right-style" "default"
-    set_tmux_option "status-right" "${right_icon_separator_1}${cpu_usage_part}${right_icon_separator_2}${ram_usage_part}${continuum_save_part}"
+    set_tmux_option "status-right" "${right_icon_separator_1}${cpu_usage_part}${right_icon_separator_2}${ram_usage_part}${right_icon_separator_3}${disk_usage_part}${continuum_save_part}"
 }
 
 function setup_second_line_status_bar() {

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/helpers.sh"
+
+function _parse_df_command () {
+    local MOUNTED_ON="$1"
+    # TYPE should be: size, used, available, use_percentage
+    local TYPE="$2"
+
+    case "$TYPE" in
+        "size")
+            TYPE=2
+        ;;
+        "used")
+            TYPE=3
+        ;;
+        "available")
+            TYPE=4
+        ;;
+        "use_percentage")
+            TYPE=5
+        ;;
+    esac
+
+    local cmd="df -h ${MOUNTED_ON} | awk 'NR==2 {print \$$TYPE}'"
+    number_with_unit=$(eval "$cmd")
+    number="${number_with_unit:0:-1}"
+    echo "$number"
+}
+
+# MOUNTED_ON should be available in "df" command output
+MOUNTED_ON="$1"
+
+# TYPE should be: used, available
+TYPE="$2"
+AVAILABLE_TYPES=("used" "available")
+if [[ -z "$TYPE" ]] || ! _contains "$TYPE" "${AVAILABLE_TYPES[@]}"; then
+    IFS=,; echo "Invalid type, please use \"${AVAILABLE_TYPES[*]}\" !"
+    exit 1
+fi
+
+USE_PERCENTAGE_DISK=$(_parse_df_command "${MOUNTED_ON}" "use_percentage")
+case "$TYPE" in
+    "used")
+        USED_DISK=$(_parse_df_command "${MOUNTED_ON}" "used")
+        echo "${USED_DISK}G (${USE_PERCENTAGE_DISK}%)"
+    ;;
+    "available")
+        AVAILABLE_DISK=$(_parse_df_command "${MOUNTED_ON}" "available")
+        echo "${AVAILABLE_DISK}G ($(( 100 - USE_PERCENTAGE_DISK ))%)"
+    ;;
+esac
+
