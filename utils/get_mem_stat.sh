@@ -46,6 +46,12 @@ UNIT_INDICATOR="${UNIT^^}"
 TOTAL_MEM=$(_parse_free_command "total" "$UNIT")
 # TARGET_MEM could be USED_MEM or AVAILABLE_MEM
 TARGET_MEM=$(_parse_free_command "$TYPE" "$UNIT")
-PERCENTAGE=$(( TARGET_MEM * 100 / TOTAL_MEM ))
 
-echo "${TARGET_MEM}/${TOTAL_MEM}${UNIT_INDICATOR} ($PERCENTAGE%)"
+mem_info=$(get_tmux_option "@double-status-bar-mem-info" "normal")
+
+if [[ "$mem_info" == "verbose" ]]; then
+    PERCENTAGE=$(( TARGET_MEM * 100 / TOTAL_MEM ))
+    echo "${TARGET_MEM}/${TOTAL_MEM} ${UNIT_INDICATOR} ($PERCENTAGE%)"
+else
+    echo "${TARGET_MEM}/${TOTAL_MEM} ${UNIT_INDICATOR}"
+fi

@@ -25,6 +25,12 @@ set-option -g @double-status-bar-separator-style 'triangle'
 
 # Set the separator style to "slope"
 set-option -g @double-status-bar-separator-style 'slope'
+
+# Set the memory information to "verbose"
+set-option -g @double-status-bar-mem-info 'verbose'
+
+# Set the disk information to "verbose"
+set-option -g @double-status-bar-disk-info 'verbose'
 ```
 
 ## License

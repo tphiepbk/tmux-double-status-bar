@@ -41,16 +41,26 @@ if [[ -z "$TYPE" ]] || ! _contains "$TYPE" "${AVAILABLE_TYPES[@]}"; then
     exit 1
 fi
 
+disk_info=$(get_tmux_option "@double-status-bar-disk-info" "normal")
+
 USE_PERCENTAGE_DISK=$(_parse_df_command "${MOUNTED_ON}" "use_percentage")
 UNIT_INDICATOR="GB"
 TOTAL_DISK=$(_parse_df_command "${MOUNTED_ON}" "size")
 case "$TYPE" in
     "used")
         USED_DISK=$(_parse_df_command "${MOUNTED_ON}" "used")
-        echo "${USED_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} (${USE_PERCENTAGE_DISK}%)"
+        if [[ "${disk_info}" == "verbose" ]]; then
+            echo "${USED_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} (${USE_PERCENTAGE_DISK}%)"
+        else
+            echo "${USED_DISK}/${TOTAL_DISK} ${UNIT_INDICATOR}"
+        fi
     ;;
     "available")
         AVAILABLE_DISK=$(_parse_df_command "${MOUNTED_ON}" "available")
-        echo "${AVAILABLE_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} ($(( 100 - USE_PERCENTAGE_DISK ))%)"
+        if [[ "${disk_info}" == "verbose" ]]; then
+            echo "${AVAILABLE_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} ($(( 100 - USE_PERCENTAGE_DISK ))%)"
+        else
+            echo "${AVAILABLE_DISK}/${TOTAL_DISK} ${UNIT_INDICATOR}"
+        fi
     ;;
 esac
