@@ -42,14 +42,15 @@ if [[ -z "$TYPE" ]] || ! _contains "$TYPE" "${AVAILABLE_TYPES[@]}"; then
 fi
 
 USE_PERCENTAGE_DISK=$(_parse_df_command "${MOUNTED_ON}" "use_percentage")
+UNIT_INDICATOR="GB"
+TOTAL_DISK=$(_parse_df_command "${MOUNTED_ON}" "size")
 case "$TYPE" in
     "used")
         USED_DISK=$(_parse_df_command "${MOUNTED_ON}" "used")
-        echo "${USED_DISK}G (${USE_PERCENTAGE_DISK}%)"
+        echo "${USED_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} (${USE_PERCENTAGE_DISK}%)"
     ;;
     "available")
         AVAILABLE_DISK=$(_parse_df_command "${MOUNTED_ON}" "available")
-        echo "${AVAILABLE_DISK}G ($(( 100 - USE_PERCENTAGE_DISK ))%)"
+        echo "${AVAILABLE_DISK}/${TOTAL_DISK}${UNIT_INDICATOR} ($(( 100 - USE_PERCENTAGE_DISK ))%)"
     ;;
 esac
-

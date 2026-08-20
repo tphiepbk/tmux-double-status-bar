@@ -12,8 +12,12 @@ function _calculate_cpu_info () {
     # Leading "_" discards the "cpu" label, trailing "_ _" discards "guest" and "guest_nice" fields
     read -r _ current_user current_nice current_system current_idle current_iowait current_irq current_softirq current_steal _ _ < /proc/stat
 
+    local result
+
     if [ -f "$CPU_CACHE_FILE" ]; then
         read -r prev_user prev_nice prev_system prev_idle prev_iowait prev_irq prev_softirq prev_steal < "$CPU_CACHE_FILE"
+
+        # Reference of the calculation: https://stackoverflow.com/questions/23367857/accurate-calculation-of-cpu-usage-given-in-percentage-in-linux
 
         # Idle = idle + iowait
         prev_real_idle=$((prev_idle + prev_iowait))
@@ -29,22 +33,20 @@ function _calculate_cpu_info () {
 
         if [ "$d_total" -gt 0 ]; then
             if [[ "$TYPE" == "used" ]]; then
-                # % cpu usage = (total - idle) / total * 100
-                cpu_usage=$(( (d_total - d_idle) * 1000 / d_total ))
-                printf "%d.%d%%" $((cpu_usage / 10)) $((cpu_usage % 10))
+                result=$(( (d_total - d_idle) * 100 / d_total ))
             else
-                # % cpu free = idle / total * 100
-                cpu_idle=$(( d_idle * 1000 / d_total ))
-                printf "%d.%d%%" $((cpu_idle / 10)) $((cpu_idle % 10))
+                result=$(( d_idle * 100 / d_total ))
             fi
         else
-            echo "0.0%"
+            result=0
         fi
     else
-        echo "0.0%"
+        result=0
     fi
 
     echo "$current_user $current_nice $current_system $current_idle $current_iowait $current_irq $current_softirq $current_steal" > "$CPU_CACHE_FILE"
+
+    echo "$result%"
 }
 
 # TYPE should be: used, idle

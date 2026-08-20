@@ -43,10 +43,9 @@ if [[ -z "$UNIT" ]] || ! _contains "$UNIT" "${AVAILABLE_UNITS[@]}"; then
 fi
 
 UNIT_INDICATOR="${UNIT^^}"
-UNIT_INDICATOR="${UNIT_INDICATOR:0:-1}"
 TOTAL_MEM=$(_parse_free_command "total" "$UNIT")
 # TARGET_MEM could be USED_MEM or AVAILABLE_MEM
 TARGET_MEM=$(_parse_free_command "$TYPE" "$UNIT")
-PERCENTAGE=$(awk "BEGIN {printf \"%.0f\", $TARGET_MEM / $TOTAL_MEM * 100}")
+PERCENTAGE=$(( TARGET_MEM * 100 / TOTAL_MEM ))
 
-echo "${TARGET_MEM}${UNIT_INDICATOR} / ${TOTAL_MEM}${UNIT_INDICATOR} ($PERCENTAGE%)"
+echo "${TARGET_MEM}/${TOTAL_MEM}${UNIT_INDICATOR} ($PERCENTAGE%)"
