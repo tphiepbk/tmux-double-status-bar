@@ -41,13 +41,27 @@ function setup_first_left_status_bar() {
 }
 
 function setup_first_right_status_bar() {
-    local cpu_usage_part
-    cpu_usage_part="${COLOR_CPU_SEP}${OPEN_ICON}${COLOR_CPU_TEXT} #(bash ${UTILS_DIR}/get_cpu_stat.sh used) ${COLOR_CPU_SEP}${CLOSE_ICON}"
-    local ram_usage_part
-    ram_usage_part="${COLOR_RAM_SEP}${OPEN_ICON}${COLOR_RAM_TEXT} #(bash ${UTILS_DIR}/get_mem_stat.sh used gb) ${COLOR_RAM_SEP}${CLOSE_ICON}"
-    local disk_usage_part
-    disk_usage_part="${COLOR_DISK_SEP}${OPEN_ICON}${COLOR_DISK_TEXT} #(bash ${UTILS_DIR}/get_disk_stat.sh /home used) "
+    # Get the configurations
+    local cpu_info_type
+    cpu_info_type=$(get_tmux_option "@double-status-bar-cpu-info-type" "used")
+    local mem_info_type
+    mem_info_type=$(get_tmux_option "@double-status-bar-mem-info-type" "used")
+    local mem_info_unit
+    mem_info_unit=$(get_tmux_option "@double-status-bar-mem-info-unit" "gb")
+    local disk_info_type
+    disk_info_type=$(get_tmux_option "@double-status-bar-disk-info-type" "used")
+    local disk_info_dir
+    disk_info_dir=$(get_tmux_option "@double-status-bar-disk-info-dir" "/home")
 
+    # Define the parts
+    local cpu_usage_part
+    cpu_usage_part="${COLOR_CPU_SEP}${OPEN_ICON}${COLOR_CPU_TEXT} #(bash ${UTILS_DIR}/get_cpu_stat.sh ${cpu_info_type}) ${COLOR_CPU_SEP}${CLOSE_ICON}"
+    local ram_usage_part
+    ram_usage_part="${COLOR_RAM_SEP}${OPEN_ICON}${COLOR_RAM_TEXT} #(bash ${UTILS_DIR}/get_mem_stat.sh ${mem_info_type} ${mem_info_unit}) ${COLOR_RAM_SEP}${CLOSE_ICON}"
+    local disk_usage_part
+    disk_usage_part="${COLOR_DISK_SEP}${OPEN_ICON}${COLOR_DISK_TEXT} #(bash ${UTILS_DIR}/get_disk_stat.sh ${disk_info_dir} ${disk_info_type}) "
+
+    # Define the separators
     local right_icon_separator_1
     right_icon_separator_1="${COLOR_ICON_SEP}${MICROCHIP_ICON}  "
     local right_icon_separator_2
